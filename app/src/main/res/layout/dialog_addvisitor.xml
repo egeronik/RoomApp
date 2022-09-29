@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/minHeight">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите данные:"
+        android:textSize="25sp"/>
+
+
+    <EditText
+        android:id="@+id/visitorNameET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Имя посетителя"
+        android:inputType="textPersonName"
+        android:minHeight="@dimen/minHeight" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/tableNumberET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Номер столика"
+            android:inputType="number"
+            android:minHeight="@dimen/minHeight"/>
+
+        <EditText
+            android:id="@+id/bookTimeET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="time"
+            android:hint="Время брони"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/visitorPhoneET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:hint="Номер телефона"
+        android:minHeight="@dimen/minHeight"/>
+
+    <EditText
+        android:id="@+id/visitorEmailET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:hint="Электронная почта"
+        android:minHeight="@dimen/minHeight"/>
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Добавить"
+        />
+
+
+</LinearLayout>
