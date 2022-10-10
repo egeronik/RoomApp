@@ -6,8 +6,10 @@ import androidx.lifecycle.Observer;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,6 +20,8 @@ import android.widget.ListView;
 import com.example.roomapp.ListAdapters.visitorListAdapter;
 import com.example.roomapp.Room.Visitor;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imageView;
 
-    String imgURi = "";
+    byte[] imgBlob = new byte[0];;
 
     final int SELECT_PICTURE = 200;
 
@@ -42,13 +46,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         visitorRepository = new VisitorRepository(getApplicationContext(), "visitors_table");
         liveData = visitorRepository.getAllVisitors();
 
         liveData.observe(this, new Observer<List<Visitor>>() {
             @Override
             public void onChanged(List<Visitor> visitors) {
-                populateListView(new ArrayList<>(visitors));
+               populateListView((ArrayList<Visitor>) visitors);
             }
         });
 
@@ -63,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         List<Visitor> tmp = liveData.getValue();
-        if (tmp != null)
-            populateListView(new ArrayList<>(tmp));
-
+        if (tmp != null) {
+          populateListView((ArrayList<Visitor>) liveData.getValue());
+        }
     }
 
     private void showAddDialog() {
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 String phone = phoneET.getText().toString();
                 String email = emailET.getText().toString();
                 String time = bookTimeET.getText().toString();
-                Visitor visitor = new Visitor(name, table, phone, email, time, imgURi);
+                Visitor visitor = new Visitor(name, table, phone, email, time, imgBlob);
                 visitorRepository.insert(visitor);
                 dialog.dismiss();
 
@@ -125,19 +130,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
-
             // compare the resultCode with the
             // SELECT_PICTURE constant
             if (requestCode == SELECT_PICTURE) {
                 // Get the url of the image from data
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    imageView.setImageURI(selectedImageUri);
-                    imgURi = selectedImageUri.toString();
-                    imageView.setVisibility(View.VISIBLE);
+                    Bitmap yourBitmap = null;
+                    try {
+                        yourBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        yourBitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                        imgBlob = bos.toByteArray();
+                        imageView.setImageURI(selectedImageUri);
+                        imageView.setVisibility(View.VISIBLE);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         }

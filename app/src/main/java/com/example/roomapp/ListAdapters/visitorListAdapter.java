@@ -1,22 +1,13 @@
 package com.example.roomapp.ListAdapters;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
-
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
-import android.os.ParcelFileDescriptor;
-import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.example.roomapp.R;
 import com.example.roomapp.Room.Visitor;
@@ -32,7 +22,7 @@ import com.example.roomapp.VisitorRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Arrays;
 
 public class visitorListAdapter extends ArrayAdapter<Visitor> {
     private static final String TAG = "ArrayAdapter";
@@ -78,16 +68,10 @@ public class visitorListAdapter extends ArrayAdapter<Visitor> {
         tableNumbTV.setText("Номер столика: " + Integer.toString(visitor.table));
         bookTimeTV.setText("Время: " + visitor.bookTime);
         phoneTV.setText("Телефон: " + visitor.phone);
-        if (!Objects.equals(visitor.imgUri, "")) {
+        if (!Arrays.equals(visitor.imgBlob, new byte[0])) {
             visitorIV.setVisibility(View.VISIBLE);
-            Uri uri = Uri.parse(visitor.imgUri);
-            ContentResolver resolver = mContext.getContentResolver();
-            String readOnlyMode = "r";
-            try (ParcelFileDescriptor pfd = resolver.openFileDescriptor(uri, readOnlyMode)) {
-                visitorIV.setImageBitmap(BitmapFactory.decodeFileDescriptor(pfd.getFileDescriptor()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Bitmap bitmap = BitmapFactory.decodeByteArray(visitor.imgBlob, 0, visitor.imgBlob.length);
+            visitorIV.setImageBitmap(bitmap);
 
         }
 

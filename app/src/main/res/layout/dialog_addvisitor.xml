@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="@dimen/minHeight">
+    android:layout_margin="@dimen/minHeight"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Введите данные:"
-        android:textSize="25sp"/>
+        android:textSize="25sp" />
 
 
     <EditText
@@ -35,7 +35,7 @@
             android:ems="10"
             android:hint="Номер столика"
             android:inputType="number"
-            android:minHeight="@dimen/minHeight"/>
+            android:minHeight="@dimen/minHeight" />
 
         <EditText
             android:id="@+id/bookTimeET"
@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="time"
-            android:hint="Время брони"/>
+            android:hint="Время брони"
+            android:inputType="time" />
 
     </LinearLayout>
 
@@ -53,18 +53,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="phone"
         android:hint="Номер телефона"
-        android:minHeight="@dimen/minHeight"/>
+        android:inputType="phone"
+        android:minHeight="@dimen/minHeight" />
 
     <EditText
         android:id="@+id/visitorEmailET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textEmailAddress"
         android:hint="Электронная почта"
-        android:minHeight="@dimen/minHeight"/>
+        android:inputType="textEmailAddress"
+        android:minHeight="@dimen/minHeight" />
 
     <Button
         android:id="@+id/loadImageButton"
@@ -88,8 +88,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Добавить"
-        />
+        android:text="Добавить" />
 
 
 </LinearLayout>

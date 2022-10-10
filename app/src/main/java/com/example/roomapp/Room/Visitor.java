@@ -27,15 +27,15 @@ public class Visitor {
     public String bookTime;
 
     @ColumnInfo(name = "img")
-    public String imgUri;
+    public byte[] imgBlob;
 
-    public Visitor( String visitorName, int table, String phone, String email, String bookTime, String imgUri) {
+    public Visitor( String visitorName, int table, String phone, String email, String bookTime, byte[] imgBlob) {
         this.name = visitorName;
         this.table = table;
         this.phone = phone;
         this.email = email;
         this.bookTime = bookTime;
-        this.imgUri = imgUri;
+        this.imgBlob = imgBlob;
 
     }
 

@@ -11,7 +11,7 @@ public interface VisitorDao {
     LiveData<List<Visitor>> getAll();
 
     @Query("SELECT * from Visitor WHERE vID =:visitorID")
-    List<Visitor>findVisitorById(int visitorID);
+    List<Visitor> findVisitorById(int visitorID);
 
     @Query("DELETE from Visitor")
     void nukeTable();
@@ -21,7 +21,6 @@ public interface VisitorDao {
 
     @Delete
     void delete(Visitor visitor);
-
 
 }
 

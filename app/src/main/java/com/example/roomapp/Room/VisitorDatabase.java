@@ -7,7 +7,7 @@ import androidx.room.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Visitor.class},version = 2)
+@Database(entities = {Visitor.class},version = 4)
 public abstract class VisitorDatabase extends RoomDatabase{
     public abstract VisitorDao visitorDao();
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
