@@ -5,12 +5,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.roomapp.ListAdapters.visitorListAdapter;
@@ -29,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
     Button addButton;
     ListView listView;
 
+    ImageView imageView;
+
+    String imgURi = "";
+
+    final int SELECT_PICTURE = 200;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Visitor> visitors) {
                 populateListView(new ArrayList<>(visitors));
-
             }
         });
 
@@ -73,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         final EditText phoneET = dialog.findViewById(R.id.visitorPhoneET);
         final EditText emailET = dialog.findViewById(R.id.visitorEmailET);
         final EditText bookTimeET = dialog.findViewById(R.id.bookTimeET);
+        imageView = dialog.findViewById(R.id.previewIV);
+        Button loadImageButton = dialog.findViewById(R.id.loadImageButton);
         Button confirmButton = dialog.findViewById(R.id.confirmButton);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 String phone = phoneET.getText().toString();
                 String email = emailET.getText().toString();
                 String time = bookTimeET.getText().toString();
-                Visitor visitor = new Visitor(name, table, phone, email, time);
+                Visitor visitor = new Visitor(name, table, phone, email, time, imgURi);
                 visitorRepository.insert(visitor);
                 dialog.dismiss();
 
@@ -91,8 +100,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        loadImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageChooser();
+            }
+        });
+
 
         dialog.show();
+    }
+
+    private void imageChooser() {
+        // create an instance of the
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        // pass the constant to compare it
+        // with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    imageView.setImageURI(selectedImageUri);
+                    imgURi = selectedImageUri.toString();
+                    imageView.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
     public void populateListView(ArrayList<Visitor> visitors) {

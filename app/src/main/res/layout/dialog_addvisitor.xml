@@ -67,6 +67,23 @@
         android:minHeight="@dimen/minHeight"/>
 
     <Button
+        android:id="@+id/loadImageButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Загрузить изображение"
+        />
+
+    <ImageView
+        android:id="@+id/previewIV"
+        android:layout_width="350px"
+        android:layout_height="350px"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_baseline_accessible_24"
+        android:visibility="gone"
+        />
+
+    <Button
         android:id="@+id/confirmButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"

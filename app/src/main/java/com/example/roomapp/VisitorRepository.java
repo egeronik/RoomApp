@@ -21,7 +21,8 @@ public class VisitorRepository {
 
 
     public VisitorRepository(Context context, String dbName) {
-        VisitorDatabase visitorDatabase = VisitorDatabase.getDatabase(context, dbName);
+
+        VisitorDatabase visitorDatabase = VisitorDatabase.getClearDatabase(context, dbName);
         this.mVisitorDao = visitorDatabase.visitorDao();
         this.mAllVisitors = mVisitorDao.getAll();
     }

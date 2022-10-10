@@ -26,12 +26,17 @@ public class Visitor {
     @ColumnInfo(name = "book_time")
     public String bookTime;
 
-    public Visitor( String visitorName, int table, String phone, String email, String bookTime) {
+    @ColumnInfo(name = "img")
+    public String imgUri;
+
+    public Visitor( String visitorName, int table, String phone, String email, String bookTime, String imgUri) {
         this.name = visitorName;
         this.table = table;
         this.phone = phone;
         this.email = email;
         this.bookTime = bookTime;
+        this.imgUri = imgUri;
+
     }
 
     @NonNull

@@ -69,6 +69,16 @@
             android:ems="10"
             android:text="Номер телефона" />
 
+        <ImageView
+            android:id="@+id/visitorIV"
+            android:layout_width="350px"
+            android:layout_height="350px"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_accessible_24"
+            android:visibility="gone"
+            android:contentDescription="TODO" />
+
+
     </LinearLayout>
 
     <Space
@@ -76,14 +86,23 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <ImageButton
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="Delete button"
-        android:minWidth="@dimen/minHeight"
-        android:minHeight="@dimen/minHeight"
 
-        android:src="@drawable/ic_baseline_delete_24" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Delete button"
+            android:minWidth="@dimen/minHeight"
+            android:minHeight="@dimen/minHeight"
+
+            android:src="@drawable/ic_baseline_delete_24" />
+
+
+    </LinearLayout>
 
 </LinearLayout>
